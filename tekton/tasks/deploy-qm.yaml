@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: deploy-qm
+spec:
+  params:
+    - name: QM_NAME
+      type: string
+    - name: QM_POD_NAME
+      type: string
+    - name: TARGET_NAMESPACE
+      type: string
+    - name: MQ_WORKSPACE_DIR
+      description: Location containing MQ configurations
+      type: string
+    - name: MQ_PVC_SC
+      type: string
+  resources:
+    inputs:
+      - name: source
+        type: git
+  steps:
+    - name: create-cm-apply-params-to-qm
+      image: popcor255/kubectl
+      workingDir: /workspace/source/$(params.MQ_WORKSPACE_DIR)
+      env:
+        - name: QM_NAME
+          value: $(params.QM_NAME)
+        - name: QM_POD_NAME
+          value: $(params.QM_POD_NAME) 
+        - name: TARGET_NAMESPACE
+          value: $(params.TARGET_NAMESPACE)
+        - name: MQ_PVC_SC
+          value: $(params.MQ_PVC_SC)
+      script: |
+          set -e
+          # Grab the Git commit tag
+          TAG="$(cat ../../.git/FETCH_HEAD | awk '{print substr($1,0,7)}')"
+          # Save it as an environment variable to create the configmap and use later in template
+          export MQ_MQSC_CM=cm-$TAG
+          # Create the config map from the supplied file in workingDir
+          kubectl create configmap $MQ_MQSC_CM --namespace $(params.TARGET_NAMESPACE) --from-file=config.mqsc || true
+          # Stub environment variables in qm_template
+          envsubst < qm_template.yaml > qm_out.yaml
+          # Apply the QueueManager crd
+          cat qm_out.yaml
+          kubectl apply -f qm_out.yaml --wait=true
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: varlibcontainers
+  volumes:
+    - emptyDir: {}
+      name: varlibcontainers

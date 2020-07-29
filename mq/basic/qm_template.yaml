@@ -1,0 +1,35 @@
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  name: $QM_POD_NAME
+  namespace: $TARGET_NAMESPACE
+spec:
+  version: 9.2.0.0-r1
+  license:
+    accept: true
+    license: L-RJON-BN7PN3
+    use: Production
+  template:
+    pod:
+      containers:
+        - name: qmgr
+          env:
+            - name: MQS_PERMIT_UNKNOWN_ID
+              value: 'true'
+  web:
+    enabled: true
+  securityContext:
+    supplementalGroups: [99]
+  queueManager:
+    name: $QM_NAME
+    mqsc:
+      - configMap:
+          items:
+            - config.mqsc
+          name: $MQ_MQSC_CM
+    availability:
+      type: SingleInstance
+    storage:
+      queueManager:
+        class: $MQ_PVC_SC
+        type: persistent-claim
