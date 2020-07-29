@@ -21,9 +21,10 @@
 
     - `GIT_TOKEN`=paste git token here and remove brackets
     - `GIT_USERNAME`=paste github username here and remove brackets
-
-2. Make the install script executable `chmod +x ./install/install.sh`
-3. Run the install script `./install/install.sh`
+2. Update the `PipelineResouce` to point to the url of your forked repository
+    - update line 8 of this file `./tekton/resources/mq-git-repo-resource.yaml` and change the `value`
+3. Make the install script executable `chmod +x ./install/install.sh`
+4. Run the install script `./install/install.sh`
 
 ## Step 4: Add the route to Github WebHook
 
