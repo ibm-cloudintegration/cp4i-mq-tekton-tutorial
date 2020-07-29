@@ -13,7 +13,7 @@
 # Steps
 
 ## Step 1: Fork this repository 
-- Follow [GitHub’s](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo_) documentation on how to fork a repo to create your own fork of the CatApp repo.
+- Follow [GitHub’s](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo_) documentation on how to fork a repo to create your own fork of this repo.
 ## Step 2: Clone the forked repository onto your machine
 ## Step 3: Modify and run the install script 
 1. Open the file `./install/install.sh` and insert your Git token and git usernname
