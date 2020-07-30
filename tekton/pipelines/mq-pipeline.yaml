@@ -18,7 +18,7 @@ spec:
       default: cp4i
     - name: MQ_PVC_SC
       type: string
-      default: csi-cephfs
+      default: ibmc-file-gold-gid
   resources:
     - name: source
       type: git

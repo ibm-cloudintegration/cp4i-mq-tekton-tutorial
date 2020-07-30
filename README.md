@@ -6,7 +6,7 @@
 2. [IBM Cloud Pak for Integration V2020.2.1](https://www-01.ibm.com/common/ssi/cgi-bin/ssialias?infotype=AN&subtype=CA&htmlfid=897/ENUS220-168&appname=USN)
 3. [IBM MQ V 9.2.0.0-r1 and mq.ibm.com/v1beta1 Operator ibm-mq.v1.1.0](https://www.ibm.com/support/knowledgecenter/SSFKSJ_9.2.0/com.ibm.mq.ctr.doc/ctr_api_v1beta1_QueueManager.htm)
 4. A namespace called `cp4i` where the MQ Operator ^ is installed
-5. An entitlement key called `ibm-entitlement-key` [Get here from here for IBM Employees](https://myibm.ibm.com/products-services/containerlibrary)
+5. An entitlement key called `ibm-entitlement-key` [Get from here for IBM Employees](https://myibm.ibm.com/products-services/containerlibrary)
 6. A Github token [see here for creating one](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 
 
